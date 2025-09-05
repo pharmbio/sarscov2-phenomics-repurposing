@@ -1,0 +1,295 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:421
+GitHash:
+ModuleCount:14
+HasImagePlaneDetails:False
+
+LoadData:[module_num:1|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Input data file location:Default Input Folder sub-folder|sarscov/outputCP407/image_set_lists
+    Name of the file:ImageSetList_Exp4-MRC5-bonus-CPnoAB2.csv
+    Load images based on this data?:Yes
+    Base image location:Default Input Folder|
+    Process just a range of rows?:No
+    Rows to process:1,100000
+    Group images by metadata?:No
+    Select metadata tags for grouping:
+    Rescale intensities?:Yes
+
+Threshold:[module_num:2|svn_version:'Unknown'|variable_revision_number:12|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:HOECHST
+    Name the output image:binaryHOECHST
+    Threshold strategy:Global
+    Thresholding method:Manual
+    Threshold smoothing scale:0.0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.0,1.0
+    Manual threshold:0.025
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Otsu
+
+MeasureImageAreaOccupied:[module_num:3|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Measure the area occupied by:Binary Image
+    Select binary images to measure:binaryHOECHST
+    Select object sets to measure:
+
+CalculateMath:[module_num:4|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Name the output measurement:percent_AreaCoveredByHOECHST
+    Operation:Divide
+    Select the numerator measurement type:Image
+    Select the numerator objects:None
+    Select the numerator measurement:AreaOccupied_AreaOccupied_binaryHOECHST
+    Multiply the above operand by:100.0
+    Raise the power of above operand by:1.0
+    Select the denominator measurement type:Image
+    Select the denominator objects:None
+    Select the denominator measurement:AreaOccupied_TotalArea_binaryHOECHST
+    Multiply the above operand by:1.0
+    Raise the power of above operand by:1.0
+    Take log10 of result?:No
+    Multiply the result by:1.0
+    Raise the power of result by:1.0
+    Add to the result:0.0
+    How should the output value be rounded?:Not rounded
+    Enter how many decimal places the value should be rounded to:0
+    Constrain the result to a lower bound?:No
+    Enter the lower bound:0.0
+    Constrain the result to an upper bound?:No
+    Enter the upper bound:1.0
+
+FlagImage:[module_num:5|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:['1 = fails;', '0 = passes;']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Hidden:1
+    Hidden:1
+    Name the flag's category:icf_flag
+    Name the flag:skipIMG_nuclei<=5%
+    How should measurements be linked?:Flag if any fail
+    Skip image set if flagged?:No
+    Flag is based on:Whole-image measurement
+    Select the object to be used for flagging:None
+    Which measurement?:Math_percent_AreaCoveredByHOECHST
+    Flag images based on low values?:No
+    Minimum value:0.0
+    Flag images based on high values?:Yes
+    Maximum value:5
+    Rules file location:Elsewhere...|
+    Rules file name:rules.txt
+    Class number:
+    Ignore flag skips on last cycle?:No
+
+CorrectIlluminationCalculate:[module_num:6|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select the input image:HOECHST
+    Name the output image:ICFregular_hoechst
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:All: Across cycles
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:200
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationCalculate:[module_num:7|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:MITO
+    Name the output image:ICFregular_mito
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:All: Across cycles
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:200
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationCalculate:[module_num:8|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:PHAandWGA
+    Name the output image:ICFregular_phaANDwga
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:All: Across cycles
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:200
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationCalculate:[module_num:9|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:SYTO
+    Name the output image:ICFregular_syto
+    Select how the illumination function is calculated:Regular
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:60
+    Rescale the illumination function?:Yes
+    Calculate function for each image individually, or based on all images?:All: Across cycles
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Automatic
+    Approximate object diameter:10
+    Smoothing filter size:200
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+SaveImages:[module_num:10|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:ICFregular_hoechst
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:ICF_HOECHST
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:IllumCorr_\g<Barcode>_\g<Well>
+    Saved file format:npy
+    Output file location:Default Output Folder|illum
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Last cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+SaveImages:[module_num:11|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:ICFregular_mito
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:ICF_MITO
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:IllumCorr_\g<Barcode>_\g<Well>
+    Saved file format:npy
+    Output file location:Default Output Folder|illum
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Last cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+SaveImages:[module_num:12|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:ICFregular_phaANDwga
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:ICF_PHAandWGA
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:IllumCorr_\g<Barcode>_\g<Well>
+    Saved file format:npy
+    Output file location:Default Output Folder|illum
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Last cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+SaveImages:[module_num:13|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:ICFregular_syto
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:ICF_SYTO
+    Number of digits:4
+    Append a suffix to the image file name?:Yes
+    Text to append to the image name:IllumCorr_\g<Barcode>_\g<Well>
+    Saved file format:npy
+    Output file location:Default Output Folder|illum
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Last cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+ExportToSpreadsheet:[module_num:14|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:No
+    Calculate the per-image mean values for object measurements?:Yes
+    Calculate the per-image median values for object measurements?:Yes
+    Calculate the per-image standard deviation values for object measurements?:Yes
+    Output file location:Default Output Folder|
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:Count_nuclei
+    Export all measurement types?:No
+    Press button to select measurements:
+    Representation of Nan/Inf:Null
+    Add a prefix to file names?:Yes
+    Filename prefix:icf_
+    Overwrite existing files without warning?:Yes
+    Data to export:Image
+    Combine these object measurements with those of the previous object?:No
+    File name:images_\g<Barcode>.csv
+    Use the object name for the file name?:No
+    Data to export:Experiment
+    Combine these object measurements with those of the previous object?:No
+    File name:experiment_\g<Barcode>.csv
+    Use the object name for the file name?:No
+

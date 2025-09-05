@@ -1,0 +1,544 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:421
+GitHash:
+ModuleCount:33
+HasImagePlaneDetails:False
+
+LoadData:[module_num:1|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Input data file location:Elsewhere...|/share/data/cellprofiler/jonne/cpoutput/combchem
+    Name of the file:p00025-U2OS-24h-L1.csv
+    Load images based on this data?:Yes
+    Base image location:Default Input Folder|
+    Process just a range of rows?:No
+    Rows to process:30,100000
+    Group images by metadata?:No
+    Select metadata tags for grouping:
+    Rescale intensities?:Yes
+
+CorrectIlluminationApply:[module_num:2|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:HOECHST
+    Name the output image:preillumHOECHST
+    Select the illumination function:ICF_HOECHST
+    Select how the illumination function is applied:Divide
+    Select the input image:MITO
+    Name the output image:preillumMITO
+    Select the illumination function:ICF_MITO
+    Select how the illumination function is applied:Divide
+    Select the input image:PHAandWGA
+    Name the output image:preillumPHAandWGA
+    Select the illumination function:ICF_PHAandWGA
+    Select how the illumination function is applied:Divide
+    Select the input image:SYTO
+    Name the output image:preillumSYTO
+    Select the illumination function:ICF_SYTO
+    Select how the illumination function is applied:Divide
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+ImageMath:[module_num:3|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:None
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:illumHOECHST
+    Image or measurement?:Image
+    Select the first image:preillumHOECHST
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
+
+ImageMath:[module_num:4|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:None
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:illumMITO
+    Image or measurement?:Image
+    Select the first image:preillumMITO
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
+
+ImageMath:[module_num:5|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:None
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:illumPHAandWGA
+    Image or measurement?:Image
+    Select the first image:preillumPHAandWGA
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
+
+ImageMath:[module_num:6|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Operation:None
+    Raise the power of the result by:1.0
+    Multiply the result by:1.0
+    Add to result:0.0
+    Set values less than 0 equal to 0?:Yes
+    Set values greater than 1 equal to 1?:Yes
+    Replace invalid values with 0?:Yes
+    Ignore the image masks?:No
+    Name the output image:illumSYTO
+    Image or measurement?:Image
+    Select the first image:preillumSYTO
+    Multiply the first image by:1.0
+    Measurement:
+    Image or measurement?:Image
+    Select the second image:None
+    Multiply the second image by:1.0
+    Measurement:
+
+Threshold:[module_num:7|svn_version:'Unknown'|variable_revision_number:12|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumHOECHST
+    Name the output image:LargeBrightArtefacts_detect
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:0
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.1,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:No
+    Size of adaptive window:Foreground
+    Lower outlier fraction:50
+    Upper outlier fraction:0.05
+    Averaging method:0.05
+    Variance method:Mean
+    # of deviations:Standard deviation
+    Thresholding method:2.0
+
+IdentifyPrimaryObjects:[module_num:8|svn_version:'Unknown'|variable_revision_number:15|show_window:False|notes:['TEXT?']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:LargeBrightArtefacts_detect
+    Name the primary objects to be identified:LargeBrightArtefacts_identify
+    Typical diameter of objects, in pixel units (Min,Max):150,5000
+    Discard objects outside the diameter range?:Yes
+    Discard objects touching the border of the image?:No
+    Method to distinguish clumped objects:None
+    Method to draw dividing lines between clumped objects:Intensity
+    Size of smoothing filter:10
+    Suppress local maxima that are closer than this minimum allowed distance:7.0
+    Speed up by using lower-resolution image to find local maxima?:Yes
+    Fill holes in identified objects?:Never
+    Automatically calculate size of smoothing filter for declumping?:Yes
+    Automatically calculate minimum allowed distance between local maxima?:Yes
+    Handling of objects if excessive number of objects identified:Continue
+    Maximum number of objects:500
+    Use advanced settings?:Yes
+    Threshold setting version:12
+    Threshold strategy:Global
+    Thresholding method:Otsu
+    Threshold smoothing scale:1.3488
+    Threshold correction factor:1.0
+    Lower and upper bounds on threshold:0.9,1.0
+    Manual threshold:0.0
+    Select the measurement to threshold with:None
+    Two-class or three-class thresholding?:Two classes
+    Log transform before thresholding?:No
+    Assign pixels in the middle intensity class to the foreground or the background?:Foreground
+    Size of adaptive window:50
+    Lower outlier fraction:0.05
+    Upper outlier fraction:0.05
+    Averaging method:Mean
+    Variance method:Standard deviation
+    # of deviations:2.0
+    Thresholding method:Minimum Cross-Entropy
+
+ExpandOrShrinkObjects:[module_num:9|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['TEXT?']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input objects:LargeBrightArtefacts_identify
+    Name the output objects:LargeBrightArtefacts_enlarge
+    Select the operation:Expand objects by a specified number of pixels
+    Number of pixels by which to expand or shrink:100
+    Fill holes in objects so that all objects shrink to a single point?:No
+
+MaskImage:[module_num:10|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumHOECHST
+    Name the output image:illumHOECHST_ExcludedLargeBrightArtefacts
+    Use objects or an image as a mask?:Objects
+    Select object for mask:LargeBrightArtefacts_enlarge
+    Select image for mask:None
+    Invert the mask?:Yes
+
+MaskImage:[module_num:11|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumPHAandWGA
+    Name the output image:illumPHAandWGA_ExcludedLargeBrightArtefacts
+    Use objects or an image as a mask?:Objects
+    Select object for mask:LargeBrightArtefacts_enlarge
+    Select image for mask:None
+    Invert the mask?:Yes
+
+CorrectIlluminationCalculate:[module_num:12|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumPHAandWGA_ExcludedLargeBrightArtefacts
+    Name the output image:PHAandWGAcorrection
+    Select how the illumination function is calculated:Background
+    Dilate objects in the final averaged image?:No
+    Dilation radius:1
+    Block size:50
+    Rescale the illumination function?:No
+    Calculate function for each image individually, or based on all images?:Each
+    Smoothing method:Fit Polynomial
+    Method to calculate smoothing filter size:Manually
+    Approximate object diameter:10
+    Smoothing filter size:50
+    Retain the averaged image?:No
+    Name the averaged image:IllumBlueAvg
+    Retain the dilated image?:No
+    Name the dilated image:IllumBlueDilated
+    Automatically calculate spline parameters?:Yes
+    Background mode:auto
+    Number of spline points:5
+    Background threshold:2.0
+    Image resampling factor:2.0
+    Maximum number of iterations:40
+    Residual value for convergence:0.001
+
+CorrectIlluminationApply:[module_num:13|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumPHAandWGA_ExcludedLargeBrightArtefacts
+    Name the output image:illumPHAandWGA_corrected
+    Select the illumination function:PHAandWGAcorrection
+    Select how the illumination function is applied:Subtract
+    Set output image values less than 0 equal to 0?:Yes
+    Set output image values greater than 1 equal to 1?:Yes
+
+RunCellpose:[module_num:14|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumHOECHST_ExcludedLargeBrightArtefacts
+    Expected object diameter:50
+    Detection mode:nuclei
+    Name the output object:nuclei
+    Use GPU:No
+    Use averaging:Yes
+    Supply nuclei image as well?:No
+    Select the nuclei image:None
+    Save probability image?:No
+    Name the probability image:Probabilities
+    Location of the pre-trained model file:Elsewhere...|
+    Pre-trained model file name:cyto_0
+    Flow threshold:0.8
+    Cell probability threshold:0.0
+    GPU memory share for each worker:0.0
+    Stitch Threshold:0.0
+    Use 3D:15
+    Minimum size:5
+    Z rescaling factor (anisotropy):0.0
+    Use Omnipose for mask reconstruction:No
+    Invert images:No
+
+RunCellpose:[module_num:15|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:illumPHAandWGA_corrected
+    Expected object diameter:150
+    Detection mode:cyto2
+    Name the output object:precells
+    Use GPU:No
+    Use averaging:Yes
+    Supply nuclei image as well?:Yes
+    Select the nuclei image:illumHOECHST_ExcludedLargeBrightArtefacts
+    Save probability image?:No
+    Name the probability image:Probabilities
+    Location of the pre-trained model file:Elsewhere...|
+    Pre-trained model file name:cyto_0
+    Flow threshold:0.8
+    Cell probability threshold:0.0
+    GPU memory share for each worker:0.0
+    Stitch Threshold:0.0
+    Use 3D:15
+    Minimum size:50
+    Z rescaling factor (anisotropy):0.0
+    Use Omnipose for mask reconstruction:No
+    Invert images:No
+
+FilterObjects:[module_num:16|svn_version:'Unknown'|variable_revision_number:9|show_window:False|notes:['remove cells from cellpose that touch borders']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the objects to filter:precells
+    Name the output objects:cells
+    Select the filtering mode:Image or mask border
+    Select the filtering method:Limits
+    Select the objects that contain the filtered objects:None
+    Select the location of the rules or classifier file:Elsewhere...|
+    Rules or classifier file name:rules.txt
+    Class number:1
+    Measurement count:1
+    Additional object count:0
+    Assign overlapping child to:Both parents
+    Keep removed objects as a separate set?:No
+    Name the objects removed by the filter:RemovedObjects
+    Select the measurement to filter by:AreaShape_Area
+    Filter using a minimum measurement value?:Yes
+    Minimum value:0.0
+    Filter using a maximum measurement value?:Yes
+    Maximum value:1.0
+
+RelateObjects:[module_num:17|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Parent objects:cells
+    Child objects:nuclei
+    Calculate child-parent distances?:None
+    Calculate per-parent means for all child measurements?:No
+    Calculate distances to other parents?:No
+    Do you want to save the children with parents as a new object set?:No
+    Name the output object:relatedObjects
+
+IdentifyTertiaryObjects:[module_num:18|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the larger identified objects:cells
+    Select the smaller identified objects:nuclei
+    Name the tertiary objects to be identified:cytoplasm
+    Shrink smaller object prior to subtraction?:Yes
+
+MeasureObjectIntensity:[module_num:19|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select images to measure:illumHOECHST, illumMITO, illumPHAandWGA, illumSYTO
+    Select objects to measure:cells, cytoplasm, nuclei
+
+MeasureObjectIntensityDistribution:[module_num:20|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:illumHOECHST, illumMITO, illumPHAandWGA, illumSYTO
+    Hidden:3
+    Hidden:1
+    Hidden:0
+    Calculate intensity Zernikes?:Magnitudes and phase
+    Maximum zernike moment:9
+    Select objects to measure:nuclei
+    Object to use as center?:These objects
+    Select objects to use as centers:None
+    Select objects to measure:cells
+    Object to use as center?:These objects
+    Select objects to use as centers:nuclei
+    Select objects to measure:cytoplasm
+    Object to use as center?:These objects
+    Select objects to use as centers:nuclei
+    Scale the bins?:No
+    Number of bins:4
+    Maximum radius:100
+
+MeasureObjectNeighbors:[module_num:21|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to measure:nuclei
+    Select neighboring objects to measure:nuclei
+    Method to determine neighbors:Adjacent
+    Neighbor distance:5
+    Consider objects discarded for touching image border?:Yes
+    Retain the image of objects colored by numbers of neighbors?:No
+    Name the output image:ObjectNeighborCount
+    Select colormap:Blues
+    Retain the image of objects colored by percent of touching pixels?:No
+    Name the output image:PercentTouching
+    Select colormap:Oranges
+
+MeasureObjectNeighbors:[module_num:22|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to measure:cells
+    Select neighboring objects to measure:cells
+    Method to determine neighbors:Adjacent
+    Neighbor distance:5
+    Consider objects discarded for touching image border?:Yes
+    Retain the image of objects colored by numbers of neighbors?:No
+    Name the output image:ObjectNeighborCount
+    Select colormap:Blues
+    Retain the image of objects colored by percent of touching pixels?:No
+    Name the output image:PercentTouching
+    Select colormap:Oranges
+
+MeasureObjectSizeShape:[module_num:23|svn_version:'Unknown'|variable_revision_number:3|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select object sets to measure:cells, cytoplasm, nuclei
+    Calculate the Zernike features?:Yes
+    Calculate the advanced features?:No
+
+MeasureColocalization:[module_num:24|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:illumHOECHST, illumMITO, illumPHAandWGA, illumSYTO
+    Set threshold as percentage of maximum intensity for the images:15.0
+    Select where to measure correlation:Within objects
+    Select objects to measure:cells, cytoplasm, nuclei
+    Run all metrics?:No
+    Calculate correlation and slope metrics?:Yes
+    Calculate the Manders coefficients?:Yes
+    Calculate the Rank Weighted Colocalization coefficients?:Yes
+    Calculate the Overlap coefficients?:Yes
+    Calculate the Manders coefficients using Costes auto threshold?:No
+    Method for Costes thresholding:Faster
+
+MeasureGranularity:[module_num:25|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:illumHOECHST, illumMITO, illumPHAandWGA, illumSYTO
+    Measure within objects?:Yes
+    Select objects to measure:cells, cytoplasm, nuclei
+    Subsampling factor for granularity measurements:0.25
+    Subsampling factor for background reduction:0.25
+    Radius of structuring element:10
+    Range of the granular spectrum:16
+
+GrayToColor:[module_num:26|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:True]
+    Select a color scheme:Composite
+    Rescale intensity:Yes
+    Select the image to be colored red:Leave this black
+    Select the image to be colored green:Leave this black
+    Select the image to be colored blue:Leave this black
+    Name the output image:colorICF_RGB_MPH
+    Relative weight for the red image:1.0
+    Relative weight for the green image:1.0
+    Relative weight for the blue image:1.0
+    Select the image to be colored cyan:Leave this black
+    Select the image to be colored magenta:Leave this black
+    Select the image to be colored yellow:Leave this black
+    Select the image that determines brightness:Leave this black
+    Relative weight for the cyan image:1.0
+    Relative weight for the magenta image:1.0
+    Relative weight for the yellow image:1.0
+    Relative weight for the brightness image:1.0
+    Hidden:3
+    Image name:illumMITO
+    Color:#ff0000
+    Weight:1.0
+    Image name:illumPHAandWGA
+    Color:#00ff00
+    Weight:1.0
+    Image name:illumHOECHST
+    Color:#0000ff
+    Weight:1.0
+
+SaveImages:[module_num:27|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:colorICF_RGB_MPH
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:icfRGB_MPH_\g<Barcode>_\g<Well>_site\g<Site>
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:png
+    Output file location:Default Output Folder sub-folder|img/icfRGB
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+OverlayOutlines:[module_num:28|svn_version:'Unknown'|variable_revision_number:4|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display outlines on a blank image?:No
+    Select image on which to display outlines:colorICF_RGB_MPH
+    Name the output image:outlines_colorICF_RGB_MPH
+    Outline display mode:Color
+    Select method to determine brightness of outlines:Max of image
+    How to outline:Inner
+    Select outline color:yellow
+    Select objects to display:nuclei
+    Select outline color:#FF0096
+    Select objects to display:cells
+
+SaveImages:[module_num:29|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:False|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:outlines_colorICF_RGB_MPH
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:outlines_colorICF_RGB_MPH_\g<Barcode>_\g<Well>_site\g<Site>
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:png
+    Output file location:Default Output Folder sub-folder|img/outlinesONcolorICF
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+DisplayDataOnImage:[module_num:30|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:nuclei
+    Measurement to display:Number_Object_Number
+    Select the image on which to display the measurements:outlines_colorICF_RGB_MPH
+    Text color:#FFA500
+    Name the output image that has the measurements displayed:outlines_ObjectNumber
+    Font size (points):9
+    Number of decimals:0
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image's measurement range
+    Color map range:0.0,1.0
+
+DisplayDataOnImage:[module_num:31|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Display object or image measurements?:Object
+    Select the input objects:cells
+    Measurement to display:Number_Object_Number
+    Select the image on which to display the measurements:outlines_ObjectNumber
+    Text color:#E31EE1
+    Name the output image that has the measurements displayed:outlines_ObjectNumber2
+    Font size (points):9
+    Number of decimals:0
+    Image elements to save:Image
+    Annotation offset (in pixels):0
+    Display mode:Text
+    Color map:Default
+    Display background image?:Yes
+    Color map scale:Use this image's measurement range
+    Color map range:0.0,1.0
+
+SaveImages:[module_num:32|svn_version:'Unknown'|variable_revision_number:16|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the type of image to save:Image
+    Select the image to save:outlines_ObjectNumber2
+    Select method for constructing file names:Single name
+    Select image name for file prefix:None
+    Enter single file name:objectnr_\g<Barcode>_\g<Well>_site\g<Site>
+    Number of digits:4
+    Append a suffix to the image file name?:No
+    Text to append to the image name:
+    Saved file format:png
+    Output file location:Default Output Folder sub-folder|img/objnumber
+    Image bit depth:8-bit integer
+    Overwrite existing files without warning?:Yes
+    When to save:Every cycle
+    Record the file and path information to the saved image?:No
+    Create subfolders in the output folder?:No
+    Base image folder:Elsewhere...|
+    How to save the series:T (Time)
+    Save with lossless compression?:No
+
+ExportToSpreadsheet:[module_num:33|svn_version:'Unknown'|variable_revision_number:13|show_window:False|notes:['TEXT']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:No
+    Calculate the per-image mean values for object measurements?:Yes
+    Calculate the per-image median values for object measurements?:Yes
+    Calculate the per-image standard deviation values for object measurements?:Yes
+    Output file location:Default Output Folder|
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:Count_nuclei
+    Export all measurement types?:Yes
+    Press button to select measurements:
+    Representation of Nan/Inf:Null
+    Add a prefix to file names?:Yes
+    Filename prefix:featICF_
+    Overwrite existing files without warning?:Yes
+    Data to export:Do not use
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
+

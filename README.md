@@ -2,7 +2,7 @@
 
 This repository accompanies the manuscript:  
 **Morphological cell profiling for drug repurposing against SARS-CoV-2 infection**  
-📄 [Read the preprint on bioRxiv](https://www.biorxiv.org/content/10.1101/2025.08.28.672794v1)
+[Read the preprint on bioRxiv](https://www.biorxiv.org/content/10.1101/2025.08.28.672794v1)
 
 We present an image-based drug repurposing approach that combines viral protein immunostaining with Cell Painting to identify host-targeting antivirals.
 
@@ -10,9 +10,20 @@ We present an image-based drug repurposing approach that combines viral protein 
 
 ## Repository Contents
 
-- **Morphology and viral infectivity scores**
-  - Data for **5,275 repurposable compounds** tested in Vero E6 cells at a single dose.
-  - Data for **324 hit compounds** from the initial screen, tested in dose–response in A549-ACE2 cells.
+- **`code/`**  
+  Scripts and notebooks for calculating morphology scores, analyzing dose–response data, and generating figures.  
+  Includes preprocessing, scoring (PLS-DA, Pearson correlation), and visualization.  
+
+- **`results/`**  
+  Processed results from the study:  
+  - Morphology and viral infectivity scores for **5,275 repurposable compounds** tested in Vero E6 cells (single dose).  
+  - Morphology and infectivity data for **324 hit compounds** tested in dose–response in A549-ACE2 cells.  
+
+- **`pipelines/`**  
+  CellProfiler pipelines used for image analysis:  
+  - Illumination correction  
+  - Segmentation (Cellpose)  
+  - Feature extraction  
 
 ---
 
