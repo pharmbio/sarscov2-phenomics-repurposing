@@ -19,6 +19,20 @@ We present an image-based drug repurposing approach that combines viral protein 
   - Morphology and viral infectivity scores for **5,275 repurposable compounds** tested in Vero E6 cells (single dose).  
   - Morphology and infectivity data for **324 hit compounds** tested in dose–response in A549-ACE2 cells.  
 
+- **`features/`**  
+
+Image-level morphological features extracted from the Cell Painting assay.
+
+Images were analyzed using **CellProfiler v4.2.1** (Stirling et al., 2021). Cell segmentation was performed using the **Cellpose v2.0 cyto2 model** (Pachitariu & Stringer et al., 2022), integrated within the CellProfiler workflow to identify nuclei and cell boundaries. Approximately 2,000 morphological features were extracted per object using the AreaShape, Correlation, Intensity, Granularity, Location, Neighbors, and RadialDistribution modules. Single-cell measurements were aggregated to image-level (site-level) mean values, generating the profiles provided in this repository.
+
+The feature tables contain:
+
+- Image-level (site-level) mean morphological profiles.
+- Approximately **2,000 Cell Painting features** per image site.
+- Experimental metadata, with metadata columns prefixed by **`Metadata_`**.
+
+Features are provided in their raw extracted form prior to downstream feature selection, normalization, and morphology score calculation.
+
 - **`pipelines/`**  
   CellProfiler pipelines used for image analysis:  
   - Illumination correction  
