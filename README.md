@@ -21,7 +21,7 @@ We present an image-based drug repurposing approach that combines viral protein 
 
 - **`features/`**  
 
-Image-level morphological features extracted from the Cell Painting assay.
+    Image-level morphological features extracted from the Cell Painting assay.
 
 Images were analyzed using **CellProfiler v4.2.1** (Stirling et al., 2021). Cell segmentation was performed using the **Cellpose v2.0 cyto2 model** (Pachitariu & Stringer et al., 2022), integrated within the CellProfiler workflow to identify nuclei and cell boundaries. Approximately 2,125 morphological features were extracted per object using the AreaShape, Correlation, Intensity, Granularity, Location, Neighbors, and RadialDistribution modules. Single-cell measurements were aggregated to image-level (site-level) mean values, generating the profiles provided in this repository.
 
@@ -58,9 +58,7 @@ Four channels are shared Cell Painting stains, common to both datasets:
 | `PHAandWGA` | Phalloidin/Alexa Fluor + Wheat Germ Agglutinin/Alexa Fluor 555 | Actin cytoskeleton + plasma membrane/Golgi |
 | `CONC` | Concanavalin A/Alexa Fluor | Endoplasmic reticulum |
 
-The fifth channel carries a SARS-CoV-2 viral protein immunostain instead of a
-MitoTracker mitochondrial stain, and which viral protein it targets differs
-between the two datasets:
+The fifth channel carries a SARS-CoV-2 viral protein immunostain:
 
 | Dataset | Channel name | Labels |
 |---|---|---|
