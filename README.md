@@ -1,8 +1,8 @@
 # SARS-CoV-2 Phenomics Repurposing
 
-This repository accompanies the manuscript:  
-**Morphological cell profiling for drug repurposing against SARS-CoV-2 infection**  
-[Read the preprint on bioRxiv](https://www.biorxiv.org/content/10.1101/2025.08.28.672794v1)
+This repository accompanies the publication:  
+**A host-centric morphological profiling approach to identify repurposed antiviral drugs**  
+[Read the article in iScience](https://www.cell.com/iscience/fulltext/S2589-0042(26)02049-3)
 
 We present an image-based drug repurposing approach that combines viral protein immunostaining with Cell Painting to identify host-targeting antivirals.
 
@@ -86,10 +86,7 @@ Determined as the **percentage of infected cells per well**, normalized per plat
 
 ## Citation
 
-If you use this repository, please cite the following preprint:
+If you use this repository, please cite the following publication:
 
-Asp, E.\*, Rietdijk, J.\*, Tampere, M., Axelsson, H., Njenda, D., Potdar, S., Kalman, A.,  
-Georgieva, P., Lapins, M., Ballante, F., Soler, A., de Kort, M., Aittokallio, T.,  
-Zaliani, A., Kuzikov, M., Gribbon, P., Lo, D., Carreras-Puigvert, J., Seashore-Ludlow, B.,  
-Spjuth, O., & Östling, P. (2025). Morphological cell profiling for drug repurposing against SARS-CoV-2 infection. *bioRxiv*.  
-[https://doi.org/10.1101/2025.08.28.672794](https://doi.org/10.1101/2025.08.28.672794)
+Asp, E., Rietdijk, J., Tampere, M., Axelsson, H., Njenda, D., Potdar, S., ... & Östling, P. (2026). A host-centric morphological profiling approach to identify repurposed antiviral drugs. *iScience*, 29(8).  
+[https://www.cell.com/iscience/fulltext/S2589-0042(26)02049-3](https://www.cell.com/iscience/fulltext/S2589-0042(26)02049-3)
